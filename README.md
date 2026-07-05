@@ -32,3 +32,16 @@ python -m eval.cost_model
 ```
 
 ## Cost comparison (100K / 1M / 10M vectors)
+
+Vectors | Self-hosted | Pinecone | Savings
+100,000 |    $12/mo   |  $50/mo  | 76%
+1,000,000 |    $12/mo   |  $50/mo  | 76%
+10,000,000 |    $48/mo   |  $50/mo  | 4%
+
+Pinecone's $50/mo minimum is what makes self-hosting win at low/mid scale —
+gap closes at real scale (10M+), which is when managed starts making sense.
+
+## Known limits
+
+- No-hallucination check = distance threshold (0.85), not a real classifier
+- Changing CHUNK_SIZE/OVERLAP orphans old vector IDs, needs a full re-index
